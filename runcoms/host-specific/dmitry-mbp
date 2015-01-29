@@ -1,0 +1,30 @@
+#
+# zshrc chunks specific for my laptop.
+#
+
+#
+# Directory shortcuts
+#
+
+alias google='cd ~/Documents/workspace/google/'
+alias ipdir='cd ~/Documents/workspace/ipython/'
+alias thesis='cd ~/Documents/workspace/Thesis/src/'
+alias madev='cd ~/Documents/workspace/ma/MeilleursAgents/'
+
+#
+# Path
+#
+
+path+=(
+    # Postgres.app
+    '/Applications/Postgres.app/Contents/Versions/9.3/bin' \
+    # MongoDB
+    '/Applications/MongoDB/bin' \
+)
+
+#
+# Aliases
+#
+
+# IPython notebook
+alias ipnb='ipython notebook --matplotlib=inline --notebook-dir=~/Documents/workspace/ipython'

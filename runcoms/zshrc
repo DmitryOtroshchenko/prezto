@@ -99,6 +99,6 @@ alias ls="ls --group-directories-first --human-readable --color --sort=extension
 # Host-specific configuration
 #
 
-if [ $(hostname) = 'dmitry-mbp' ]; then
+if [ $(hostname) = 'dmitry' ]; then
     source "${ZDOTDIR:-$HOME}/.zprezto/runcoms/host-specific/dmitry-mbp"
 fi
