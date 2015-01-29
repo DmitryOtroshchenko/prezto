@@ -10,4 +10,101 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+#
+# Disable r builtin so that we could start r in Terminal
+#
+disable r
+
+#
+# Python
+#
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+source ~/.virtualenvs/py/bin/activate
+
+#
+# To compile stuff on Mac...
+#
+#
+if [[ "$OSTYPE" == darwin* ]]; then
+    export ARCHFLAGS='-Wno-error=unused-command-line-argument-hard-error-in-future'
+fi
+
+##############################################################################
+# Aliases
+##############################################################################
+
+
+alias detect_encoding='file -bi'
+
+if [[ "$OSTYPE" == darwin* ]]; then
+    # Concatenate PDFs.
+    alias concat-pdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
+    # View man page in Preview.
+    function pman() {
+        man -t $argv | open -f -a /Applications/Preview.app
+    }
+    # Prepend gnu coreutils path so that it was used instead of the system ones.
+    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+    # Same for MANPATH
+    MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+    alias man='man -M $MANPATH'
+fi
+
+alias g='git'
+alias st='git status'
+alias dd='git diff'
+
+#
+# tmux
+#
+
+# Attach to a tmux instance.
+function tma() {
+    if [[ $# == 0 ]]; then
+        tmux attach
+    else
+        tmux attach -t "$@"
+    fi
+}
+
+# Create a new tmux instance.
+function tmc() {
+    if [[ $# == 0 ]]; then
+        tmux new -s $(basename $(pwd))
+    else
+        tmux new -s "$@"
+    fi
+}
+
+alias tm='tmux list-sessions'
+alias tml='tm'
+alias tms='tmuxinator start'
+alias tmk='tmux kill-session -t'
+
+#
+# Add a fasd mapping
+#
+
+alias n='fasd_cd -i'
+
+#
+# Misc
+#
+
+alias ls="ls --group-directories-first --human-readable --color --sort=extension --classify --ignore=\"*.pyc\""
+
+#
+# Host-specific configuration
+#
+
+if [ $(hostname) = 'dmitry-mbp' ]; then
+    source "${ZDOTDIR:-$HOME}/.zprezto/runcoms/host-specific/dmitry-mbp"
+fi
+
+#
+# Enable managing dotfiles by fresh
+#
+
+source ~/.fresh/build/shell.sh
