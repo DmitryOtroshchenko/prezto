@@ -25,9 +25,16 @@ export PAGER='less'
 # Language
 #
 
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-fi
+export SHELL='/usr/local/bin/zsh'
+export TERM='xterm-256color'
+
+#
+# Locale and all this oldschool shit for compatibility
+# with idiots that don't use Unicode.
+#
+
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
 
 #
 # Paths
