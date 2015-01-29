@@ -12,17 +12,6 @@ alias thesis='cd ~/Documents/workspace/Thesis/src/'
 alias madev='cd ~/Documents/workspace/ma/MeilleursAgents/'
 
 #
-# Path
-#
-
-path+=(
-    # Postgres.app
-    '/Applications/Postgres.app/Contents/Versions/9.3/bin' \
-    # MongoDB
-    '/Applications/MongoDB/bin' \
-)
-
-#
 # Aliases
 #
 
