@@ -16,4 +16,4 @@ alias madev='cd ~/Documents/workspace/ma/MeilleursAgents/'
 #
 
 # IPython notebook
-alias ipnb='ipython notebook --matplotlib=inline --notebook-dir=~/Documents/workspace/ipython'
+alias ipnb='ipython notebook --profile=ocean-dark --matplotlib=inline --notebook-dir=~/Documents/workspace/ipython'
