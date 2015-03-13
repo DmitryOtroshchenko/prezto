@@ -83,11 +83,27 @@ alias tml='tm'
 alias tms='tmuxinator start'
 alias tmk='tmux kill-session -t'
 
-#
 # Add a fasd mapping
+alias n='fasd_cd -i'
+
+# Clean ssh persistent connections.
+alias sshcleanup="rm -f ~/.ssh/_ssh_socket_*"
+
+#
+# Use C-Z to restore the laste suspended job.
 #
 
-alias n='fasd_cd -i'
+fancy-ctrl-z () {
+    if [[ $#BUFFER -eq 0 ]]; then
+        BUFFER=" fsetopt histignorespaceg"
+        zle accept-line
+    else
+        zle push-input
+        zle clear-screen
+    fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
 
 #
 # Misc
