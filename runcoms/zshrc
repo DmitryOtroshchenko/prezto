@@ -95,7 +95,7 @@ alias sshcleanup="rm -f ~/.ssh/_ssh_socket_*"
 
 fancy-ctrl-z () {
     if [[ $#BUFFER -eq 0 ]]; then
-        BUFFER=" fsetopt histignorespaceg"
+        BUFFER="fg"
         zle accept-line
     else
         zle push-input
