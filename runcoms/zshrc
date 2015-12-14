@@ -16,10 +16,17 @@ fi
 disable r
 
 #
+# A more useful keymap.
+#
+bindkey '^U' backward-kill-line
+bindkey '^B' backward-word
+bindkey '^F' forward-word
+
+#
 # Python
 #
 
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+export VIRTUAL_ENV_DISABLE_PROMPT=0
 source ~/.virtualenvs/py/bin/activate
 
 #
@@ -51,6 +58,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
     MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     alias man='man -M $MANPATH'
 fi
+
+PATH="/Applications/OpenSCAD.app/Contents/MacOS:$PATH"
 
 alias g='git'
 alias st='git status'
@@ -105,6 +114,51 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
+fast-ls () {
+    BUFFER="ls"
+    zle accept-line
+}
+zle -N fast-ls
+bindkey '^Q' fast-ls
+
+#
+# FZF
+#
+
+fkill() {
+    pid=$(ps -efww | sed 1d | fzf -m | awk '{print $2}')
+
+    if [ "x$pid" != "x" ]
+    then
+        kill -${1:-9} $pid
+    fi
+}
+
+# c - browse chrome history
+c() {
+    local cols sep
+    cols=$(( COLUMNS / 3 ))
+    sep='{{::}}'
+
+    # Copy History DB to circumvent the lock
+    # - See http://stackoverflow.com/questions/8936878 for the file path
+    cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
+
+    sqlite3 -separator $sep /tmp/h \
+        "select substr(title, 1, $cols), url
+    from urls order by last_visit_time desc" |
+    awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\n", $1, $2}' |
+    fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+}
+
+#
+# Perl
+#
+
+PERL_MB_OPT="--install_base \"/Users/dmitry/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/dmitry/perl5"; export PERL_MM_OPT;
+export PERL5LIB=/Users/dmitry/perl5/lib/perl5/
+
 #
 # Misc
 #
@@ -118,3 +172,4 @@ alias ls="ls --group-directories-first --human-readable --color --sort=extension
 if [ $(hostname) = 'dmitry' ]; then
     source "${ZDOTDIR:-$HOME}/.zprezto/runcoms/host-specific/dmitry-mbp"
 fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

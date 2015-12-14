@@ -3,13 +3,17 @@
 #
 
 #
+# MacOS tools
+#
+
+alias appstore_reset='rm -rf "$(getconf DARWIN_USER_CACHE_DIR)/com.apple.appstore"'
+
+#
 # Directory shortcuts
 #
 
-alias google='cd ~/Documents/workspace/google/'
 alias ipdir='cd ~/Documents/workspace/ipython/'
 alias thesis='cd ~/Documents/workspace/Thesis/src/'
-alias madev='cd ~/Documents/workspace/ma/MeilleursAgents/'
 
 #
 # Aliases
