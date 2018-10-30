@@ -57,6 +57,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
     # Same for MANPATH
     MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     alias man='man -M $MANPATH'
+    export KBD_LAYOUTS="/Library/Keyboard Layouts/"
 fi
 
 PATH="/Applications/OpenSCAD.app/Contents/MacOS:$PATH"
@@ -173,3 +174,10 @@ if [ $(hostname) = 'dmitry' ]; then
     source "${ZDOTDIR:-$HOME}/.zprezto/runcoms/host-specific/dmitry-mbp"
 fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+source ~/.config/up/up.sh
+
+source ~/.criteo
+
+alias pt='pytest -s --pdb --pdbcls=IPython.terminal.debugger:Pdb'
